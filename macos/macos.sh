@@ -115,8 +115,8 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 echo "Disable Spotlight Suggestions, Bing Web Search, and other leaky data."
 run python ./fix_leaky_data.py
 
-# echo "Set all network interfaces to use Google DNS."
-# run bash ./use_google_dns.sh
+echo "Set all network interfaces to use Google DNS."
+run bash ./use_google_dns.sh
 
 echo "Disable Captive Portal Hijacking Attack."
 run defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
@@ -137,7 +137,7 @@ echo "Disable Bonjour multicast advertisements."
 run defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
 
 ###############################################################################
-# Dock, Dashboard, and hot corners                                            #
+# Dock, Dashboard                                                             #
 ###############################################################################
 
 echo "Change minimize/maximize window effect"
@@ -158,11 +158,11 @@ run defaults write com.apple.dock tilesize -int 36
 echo "Make Dock icons of hidden applications translucent"
 run defaults write com.apple.dock showhidden -bool true
 
-echo "Disable Dashboard"
-run defaults write com.apple.dashboard mcx-disabled -bool true
-
 echo "Don’t automatically rearrange Spaces based on most recent use"
 run defaults write com.apple.dock mru-spaces -bool false
+
+echo "Disable Dashboard"
+run defaults write com.apple.dashboard mcx-disabled -bool true
 
 ###############################################################################
 # SSD-specific tweaks                                                         #
@@ -175,7 +175,7 @@ run sudo pmset -a sms 0
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
-echo "Trackpad: enable tap to click for this user and for the login screen"
+echo "Enable tap to click for this user and for the login screen"
 run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
