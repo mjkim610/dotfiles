@@ -98,8 +98,9 @@ echo "Expand print panel by default"
 run defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 run defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-echo "Automatically quit printer app once the print jobs complete"
-run defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+# Error in Sierra
+#echo "Automatically quit printer app once the print jobs complete"
+#run defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 echo "Set Help Viewer windows to non-floating (always-on-front) mode"
 run defaults write com.apple.helpviewer DevMode -bool true
@@ -116,10 +117,10 @@ echo "Disable Spotlight Suggestions, Bing Web Search, and other leaky data."
 run python ./fix_leaky_data.py
 
 echo "Set all network interfaces to use Google DNS."
-run bash ./use_google_dns.sh
+run bash ./use_google_dns.py
 
 echo "Disable Captive Portal Hijacking Attack."
-run defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
+run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
 echo "Don't default to saving documents to iCloud."
 run defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
@@ -128,13 +129,13 @@ echo "Disable crash reporter."
 run defaults write com.apple.CrashReporter DialogType none
 
 echo "Enable Stealth Mode. Computer will not respond to ICMP ping requests or connection attempts from a closed TCP/UDP port."
-run defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
+run sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
 
 echo "Disable wake on network access."
-run systemsetup -setwakeonnetworkaccess off
+run sudo systemsetup -setwakeonnetworkaccess off
 
 echo "Disable Bonjour multicast advertisements."
-run defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
+run sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
 
 ###############################################################################
 # Dock, Dashboard                                                             #
@@ -146,8 +147,12 @@ run defaults write com.apple.dock mineffect -string "scale"
 echo "Minimize windows into their application’s icon"
 run defaults write com.apple.dock minimize-to-application -bool true
 
-echo "Disable mission control animations."
-run defaults write com.apple.dock expose-animation-duration -float 0.0
+
+# As of Sierra, there is no way to change expose animation.
+# Temporary workaround is to enable "Reduce Motion",
+# Settings > Accessibility > Display > Reduce Motion
+#echo "Disable mission control animations."
+#run defaults write com.apple.dock expose-animation-duration -float 0.0
 
 echo "Speed up the auto-hiding dock delay."
 run defaults write com.apple.dock autohide-delay -float 0.1
