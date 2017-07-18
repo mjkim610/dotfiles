@@ -60,7 +60,13 @@ run sudo scutil --set LocalHostName "'$computer_name'"
 run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "'$computer_name'"
 
 echo "Disable Resume system-wide"
-run defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+# None seem to work in Sierra
+#run defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+
+# Make the file owned by root (otherwise the OS will just replace it)
+#run sudo chown root ~/Library/Preferences/ByHost/com.apple.loginwindow*
+# Remove all permissions, so it can't be read or written to
+#run sudo chmod 000 ~/Library/Preferences/ByHost/com.apple.loginwindow*
 
 #echo "Disable the warning when changing a file extension."
 #run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
