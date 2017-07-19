@@ -153,18 +153,23 @@ run defaults write com.apple.dock mineffect -string "scale"
 echo "Minimize windows into their application’s icon"
 run defaults write com.apple.dock minimize-to-application -bool true
 
-
-# As of Sierra, there is no way to change expose animation.
-# Temporary workaround is to enable "Reduce Motion",
-# Settings > Accessibility > Display > Reduce Motion
 #echo "Disable mission control animations."
 #run defaults write com.apple.dock expose-animation-duration -float 0.0
+# As of Sierra, there is no way to change expose animation.
+# Workaround is to enable "Reduce Motion",
+run defaults write com.apple.universalaccess reduceMotion -bool true
 
-echo "Speed up the auto-hiding dock delay."
+echo "Move dock to right side"
+run defaults write com.apple.dock orientation -string "right"
+
+echo "Auto-hide dock"
+run defaults write com.apple.dock autohide -bool true
+
+echo "Speed up the auto-hiding dock delay"
 run defaults write com.apple.dock autohide-delay -float 0.1
 
 echo "Set the icon size of Dock items to 36 pixels"
-run defaults write com.apple.dock tilesize -int 36
+run defaults write com.apple.dock tilesize -int 45
 
 echo "Make Dock icons of hidden applications translucent"
 run defaults write com.apple.dock showhidden -bool true
