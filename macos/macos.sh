@@ -123,7 +123,7 @@ echo "Disable Spotlight Suggestions, Bing Web Search, and other leaky data."
 run python ./fix_leaky_data.py
 
 echo "Set all network interfaces to use Google DNS."
-run bash ./use_google_dns.py
+run zsh ./use_google_dns.sh
 
 echo "Disable Captive Portal Hijacking Attack."
 run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false

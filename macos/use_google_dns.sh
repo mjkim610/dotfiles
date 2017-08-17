@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Description: Sets all network interfaces to use Google DNS servers, but only
 # for the network interfaces that are not compliant.
 
